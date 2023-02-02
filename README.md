@@ -11,5 +11,5 @@ If you want to use this code, remember to add a config.json file:
 	"token": "your-token"
 }
 ```
-I have built this bot on legacy versions of Node and Discord.js. Working on Node v14.16.1, as of February 2022. Some commands do not work on Node v15.*.*. Make sure you check the package.json file. 
+I have built this bot on legacy versions of Node and Discord.js. Working on Node v14.16.1, as of February 2022. Some commands do not work on Node v15.x.x. Make sure you check the package.json file. 
 
