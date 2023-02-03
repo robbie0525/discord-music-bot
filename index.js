@@ -57,18 +57,25 @@ client.on('message', async message => {
     play();
     function play() {
       // ask if queue empty; if not, repeat
-      if (queue.length == 1) {
+      if (queue.length <= 1) {
         // play song
         const stream = ytdl(queue[0], { filter: 'audioonly' });
         dispatcher = connection.playStream(stream);
+        // don't display this message if the title is undefined
+        if (titles[0] != undefined) {
         message.channel.send('✅ Now playing "' + titles[0] + '"!');
+        }
         // once track ends, cycle next track and repeat
         dispatcher.on('end', () => {
+          // check if queue length does not equal 0; if so, don't run this code
+          // this prevents entering a loop
+          if(queue.length != 0){
           // remove current track from titles list
           titles.shift();
           // remove current track from queue
           queue.shift();
           play();
+          }
         });
       }
     }
@@ -143,7 +150,6 @@ client.on('message', async message => {
     } else {
     // destroy stream, and cycle next queued track
     dispatcher.destroy();
-    queue.shift();
     message.channel.send('✅ I have skipped the current track.');
     }
   } else if (command === 'help') {
